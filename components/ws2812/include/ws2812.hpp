@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include "base_types/base_types.hpp"
+#include "base_types.hpp"
 
 extern "C" {
 #include "led_strip.h"
