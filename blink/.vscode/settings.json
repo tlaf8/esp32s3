@@ -13,8 +13,9 @@
   "clangd.path": "C:\\Espressif\\tools\\esp-clang\\esp-19.1.2_20250312\\esp-clang\\bin\\clangd.exe",
   "clangd.arguments": [
     "--background-index",
-    "--query-driver=**",
-    "--compile-commands-dir=c:\\Users\\21laf\\esp32\\blink\\build"
+    "\"--query-driver=C:\\\\Espressif\\\\tools\\\\**\\\\bin\\\\*esp*-elf-gcc*.exe\"",
+    "\"--query-driver=C:\\\\Espressif\\\\tools\\\\**\\\\bin\\\\*esp*-elf-g++*.exe\"",
+    "--compile-commands-dir=${workspaceFolder}/build"
   ],
   "idf.flashType": "UART",
   "idf.currentSetup": "C:/Espressif/frameworks/esp-idf-v5.5.2/"

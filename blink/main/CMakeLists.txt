@@ -1,3 +1,5 @@
-idf_component_register(SRCS "blink.c"
-                       INCLUDE_DIRS "."
-                       REQUIRES driver)
+idf_component_register(
+    SRCS "blink.cpp"
+    INCLUDE_DIRS "."
+    REQUIRES ws2812
+)
