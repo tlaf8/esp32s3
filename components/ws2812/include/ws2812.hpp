@@ -25,8 +25,6 @@ PUBLIC:
 
     esp_err_t set(const RGB& colour_array);
     esp_err_t off();
-
-PRIVATE:
     esp_err_t init();
 
 PRIVATE:
