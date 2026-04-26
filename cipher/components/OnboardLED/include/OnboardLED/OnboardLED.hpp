@@ -1,4 +1,5 @@
 #pragma once
+
 #include "esp_err.h"
 #include "led_strip_types.h"
 #include <cstdint>

@@ -2,18 +2,18 @@
 #include "cipher/Task.hpp"
 #include "cipher/Mutex.hpp"
 #include "cipher/OS.hpp"
-#include "ws2812/ws2812.hpp"
+#include "OnboardLED/OnboardLED.hpp"
 #include "esp_log.h"
 #include <inttypes.h>
 
 using namespace cipher;
 
-static Queue queue(sizeof(uint32_t), 1);
 static Mutex mutex;
+static Queue queue(sizeof(uint32_t), 1);
 static OnboardLED led{21};
 
 void blink(char channel) {
-    mutex.try_lock(100);
+    mutex.try_lock(10);
 
     switch(channel) {
         case 'r': {
