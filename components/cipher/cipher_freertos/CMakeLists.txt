@@ -6,7 +6,7 @@ idf_component_register(
         "src/OS.cpp"
 
     INCLUDE_DIRS
-        "../cipher/include"
+        "../include"
 
     REQUIRES
         freertos

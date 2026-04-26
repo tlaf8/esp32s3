@@ -1,4 +1,4 @@
-#include "OnboardLED/OnboardLED.hpp"
+#include "ws2812/ws2812.hpp"
 #include "led_strip.h"
 #include "led_strip_rmt.h"
 #include "led_strip_types.h"
@@ -6,12 +6,12 @@
 #include "esp_check.h"
 #include <cstdint>
 
-OnboardLED::OnboardLED(uint8_t gpio)
+ws2812::ws2812(uint8_t gpio)
     : gpio_(gpio) {}
 
-OnboardLED::~OnboardLED() {}
+ws2812::~ws2812() {}
 
-esp_err_t OnboardLED::init() {
+esp_err_t ws2812::init() {
     led_strip_config_t led_conf = {
         .strip_gpio_num = gpio_,
         .max_leds = 1,
@@ -37,7 +37,7 @@ esp_err_t OnboardLED::init() {
     return ESP_OK;
 }
 
-esp_err_t OnboardLED::set(uint8_t r, uint8_t g, uint8_t b) {
+esp_err_t ws2812::set(uint8_t r, uint8_t g, uint8_t b) {
     ESP_RETURN_ON_FALSE(initialized_, ESP_ERR_INVALID_STATE, "LED", "Not initialized");
 
     ESP_ERROR_CHECK(led_strip_set_pixel(handle_, 0, r, g, b));
@@ -46,7 +46,7 @@ esp_err_t OnboardLED::set(uint8_t r, uint8_t g, uint8_t b) {
     return ESP_OK;
 }
 
-esp_err_t OnboardLED::clear() {
+esp_err_t ws2812::clear() {
     ESP_RETURN_ON_FALSE(initialized_, ESP_ERR_INVALID_STATE, "LED", "Not initialized");
 
     ESP_ERROR_CHECK(led_strip_clear(handle_));

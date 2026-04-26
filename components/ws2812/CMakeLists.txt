@@ -1,5 +1,5 @@
 idf_component_register(
-    SRCS "src/OnboardLED.cpp"
+    SRCS "src/ws2812.cpp"
     INCLUDE_DIRS "include"
     REQUIRES led_strip
 )

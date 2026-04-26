@@ -4,10 +4,10 @@
 #include "led_strip_types.h"
 #include <cstdint>
 
-class OnboardLED {
+class ws2812 {
 public:
-    OnboardLED(uint8_t gpio);
-    ~OnboardLED();
+    ws2812(uint8_t gpio);
+    ~ws2812();
 
     esp_err_t init();
     esp_err_t set(uint8_t r, uint8_t g, uint8_t b);
