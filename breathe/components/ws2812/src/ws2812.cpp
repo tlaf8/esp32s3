@@ -1,27 +1,56 @@
-#include "ws2812.hpp"
+#include "ws2812/ws2812.hpp"
+#include "led_strip.h"
+#include "led_strip_rmt.h"
+#include "led_strip_types.h"
+#include "soc/clk_tree_defs.h"
+#include "esp_check.h"
+#include <cstdint>
 
-WS2812::WS2812(uint8_t gpio_pin, bool invert): 
-gpio_pin_(gpio_pin), invert_(invert) {}
+ws2812::ws2812(uint8_t gpio)
+    : gpio_(gpio) {}
 
-esp_err_t WS2812::init() {
-    led_config_.strip_gpio_num = gpio_pin_;
-    led_config_.max_leds = 1;
-    led_config_.led_model = LED_MODEL_WS2812;
-    led_config_.color_component_format = LED_STRIP_COLOR_COMPONENT_FMT_RGB;
-    led_config_.flags.invert_out = invert_;
-    return led_strip_new_rmt_device(&led_config_, &rmt_config_, &led_handle_);
+ws2812::~ws2812() {}
+
+esp_err_t ws2812::init() {
+    led_strip_config_t led_conf = {
+        .strip_gpio_num = gpio_,
+        .max_leds = 1,
+        .led_model = LED_MODEL_WS2812,
+        .color_component_format = LED_STRIP_COLOR_COMPONENT_FMT_GRB,
+        .flags = {
+            .invert_out = 0
+        }
+    };
+
+    led_strip_rmt_config_t rmt_conf = {
+        .clk_src = RMT_CLK_SRC_DEFAULT,
+        .resolution_hz = 10 * 1000 * 1000, // 10 MHz
+        .mem_block_symbols = 0,
+        .flags = {
+            .with_dma = false,
+        }
+    };
+
+    ESP_ERROR_CHECK(led_strip_new_rmt_device(&led_conf, &rmt_conf, &handle_));
+
+    initialized_ = true;
+    return ESP_OK;
 }
 
-esp_err_t WS2812::set(const RGB& colour_array) {
-    if (!led_handle_) return ESP_ERR_INVALID_STATE;
+esp_err_t ws2812::set(uint8_t r, uint8_t g, uint8_t b) {
+    ESP_RETURN_ON_FALSE(initialized_, ESP_ERR_INVALID_STATE, "LED", "Not initialized");
 
-    led_strip_set_pixel(led_handle_, 0, colour_array.r, colour_array.g, colour_array.b);
-    return led_strip_refresh(led_handle_);
+    ESP_ERROR_CHECK(led_strip_set_pixel(handle_, 0, r, g, b));
+    ESP_ERROR_CHECK(led_strip_refresh(handle_));
+
+    return ESP_OK;
 }
 
-esp_err_t WS2812::off() {
-    if (!led_handle_) return ESP_ERR_INVALID_STATE;
+esp_err_t ws2812::clear() {
+    ESP_RETURN_ON_FALSE(initialized_, ESP_ERR_INVALID_STATE, "LED", "Not initialized");
 
-    led_strip_set_pixel(led_handle_, 0, 0, 0, 0);
-    return led_strip_refresh(led_handle_);
+    ESP_ERROR_CHECK(led_strip_clear(handle_));
+    ESP_ERROR_CHECK(led_strip_refresh(handle_));
+
+    return ESP_OK;
 }
