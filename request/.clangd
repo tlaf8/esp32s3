@@ -1,6 +1,19 @@
 CompileFlags:
+  CompilationDatabase: build
+
+  Add: [
+    "--target=xtensa",
+    "--gcc-toolchain=C:/Espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107",
+
+    "--sysroot=C:/Espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107/xtensa-esp-elf/xtensa-esp-elf",
+
+    "-isystem", "C:/Espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107/xtensa-esp-elf/xtensa-esp-elf/include/c++/14.2.0",
+    "-isystem", "C:/Espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107/xtensa-esp-elf/xtensa-esp-elf/include/c++/14.2.0/xtensa-esp-elf"
+  ]
+
   Remove:
     - -mlongcalls
     - -fno-shrink-wrap
     - -fstrict-volatile-bitfields
     - -fno-tree-switch-conversion
+    - -fanalyzer
