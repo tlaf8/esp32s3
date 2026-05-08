@@ -1,29 +1,30 @@
-#include "cipher/Queue.hpp"
+#include "cipher/queue.hpp"
 #include "freertos/FreeRTOS.h"
 #include "freertos/projdefs.h"
 #include "freertos/queue.h"
+#include "portmacro.h"
 
 namespace cipher {
 
-Queue::Queue(size_t item_size, size_t length) {
+queue::queue(size_t item_size, size_t length) {
     handle_ = xQueueCreate(length, item_size);
 }
 
-Queue::~Queue() {
+queue::~queue() {
     if (handle_) {
         vQueueDelete(handle_);
     }
 }
 
-bool Queue::send(const void* item, uint32_t timeout_ms) {
+bool queue::send(const void* item, uint32_t timeout_ms) {
     return xQueueSend(handle_, item, pdMS_TO_TICKS(timeout_ms)) == pdTRUE;
 }
 
-bool Queue::receive(void* item, uint32_t timeout_ms) {
-    return xQueueReceive(handle_, item, pdMS_TO_TICKS(timeout_ms)) == pdTRUE;
+bool queue::receive(void* item, uint32_t timeout_ms) {
+    return xQueueReceive(handle_, item, (timeout_ms == portMAX_DELAY) ? portMAX_DELAY : pdMS_TO_TICKS(timeout_ms)) == pdTRUE;
 }
 
-size_t Queue::size() const {
+size_t queue::size() const {
     return uxQueueMessagesWaiting(handle_);
 }
 

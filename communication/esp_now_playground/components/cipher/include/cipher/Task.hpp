@@ -1,16 +1,16 @@
 #pragma once
-#include "cipher/interfaces/i_task.hpp"
+#include "cipher/interfaces/ITask.hpp"
 #include "freertos/idf_additions.h"
 #include <functional>
 
 namespace cipher {
 
-class task : public interfaces::i_task {
+class Task : public interfaces::ITask {
 public:
     using func_t = std::function<void()>;
 
-    task(const char* name, uint32_t stack_size, uint32_t priority, func_t entry_point);
-    ~task();
+    Task(const char* name, uint32_t stack_size, uint32_t priority, func_t entry_point);
+    ~Task();
 
     void run() override;
     void suspend() override;

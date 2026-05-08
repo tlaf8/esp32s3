@@ -1,13 +1,13 @@
 #pragma once
-#include "cipher/interfaces/i_mutex.hpp"
+#include "cipher/interfaces/IMutex.hpp"
 #include "freertos/idf_additions.h"
 
 namespace cipher {
 
-class mutex : public interfaces::i_mutex {
+class Mutex : public interfaces::IMutex {
 public:
-    mutex();
-    ~mutex();
+    Mutex();
+    ~Mutex();
 
     void lock() override;
     void unlock() override;

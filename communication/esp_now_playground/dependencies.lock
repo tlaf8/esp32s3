@@ -13,20 +13,9 @@ dependencies:
     source:
       type: idf
     version: 5.5.2
-  johboh/nlohmann-json:
-    component_hash: 2a97e10124d755da820b0381e36a9a6504574328f262964ccea3f8b2f228fc66
-    dependencies:
-    - name: idf
-      require: private
-      version: '>=4.4'
-    source:
-      registry_url: https://components.espressif.com/
-      type: service
-    version: 3.12.0
 direct_dependencies:
 - espressif/led_strip
 - idf
-- johboh/nlohmann-json
-manifest_hash: 8289732c842404687c1379898c05a5c63bd640ad9f3463c4d6e8e447e0d38bc8
+manifest_hash: f9f27a7bfd490a8f252ea50084db6f87c986509746a1f4fe61b5ce5bb0e44fcb
 target: esp32s3
 version: 2.0.0

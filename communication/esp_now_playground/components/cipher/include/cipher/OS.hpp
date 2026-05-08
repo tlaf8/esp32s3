@@ -3,7 +3,7 @@
 
 namespace cipher {
 
-class os {
+class OS {
 public:
     static void sleep(uint32_t ms);
 };

@@ -3,6 +3,6 @@
 
 using namespace cipher;
 
-void os::sleep(uint32_t ms) {
+void OS::sleep(uint32_t ms) {
     vTaskDelay(pdMS_TO_TICKS(ms));
 }

@@ -1,29 +1,29 @@
-#include "cipher/mutex.hpp"
+#include "cipher/Mutex.hpp"
 #include "freertos/semphr.h"
 #include "portmacro.h"
 #include <cstdint>
 
 namespace cipher {
 
-mutex::mutex() {
+Mutex::Mutex() {
     handle_ = xSemaphoreCreateMutex();
 }
 
-mutex::~mutex() {
+Mutex::~Mutex() {
     if (handle_) {
         vSemaphoreDelete(handle_);
     }
 }
 
-void mutex::lock() {
+void Mutex::lock() {
     xSemaphoreTake(handle_, portMAX_DELAY);
 }
 
-void mutex::unlock() {
+void Mutex::unlock() {
     xSemaphoreGive(handle_);
 }
 
-bool mutex::try_lock(uint32_t timeout_ms) {
+bool Mutex::try_lock(uint32_t timeout_ms) {
     return xSemaphoreTake(handle_, pdMS_TO_TICKS(timeout_ms)) == pdTRUE;
 }
 

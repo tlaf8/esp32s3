@@ -1,14 +1,14 @@
 #pragma once
-#include "cipher/interfaces/i_queue.hpp"
+#include "cipher/interfaces/IQueue.hpp"
 #include "freertos/idf_additions.h"
 #include <cstdint>
 
 namespace cipher {
 
-class queue : public interfaces::i_queue {
+class Queue : public interfaces::IQueue {
 public:
-    queue(size_t item_size, size_t length);
-    ~queue();
+    Queue(size_t item_size, size_t length);
+    ~Queue();
 
     bool send(const void* item, uint32_t timeout_ms) override;
     bool receive(void* item, uint32_t timeout_ms) override;
